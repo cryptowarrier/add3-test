@@ -1,0 +1,110 @@
+{
+  "manifestVersion": "3.2",
+  "admin": {
+    "address": "0xad15c7563c70A0971F1C0Eb13aBdA280f039cD41",
+    "txHash": "0x609529f21fda03d3cd6701d58b5350f20111b683fc4390eeb75df8cce22ae10e"
+  },
+  "proxies": [
+    {
+      "address": "0xFbdB66b9815d7404Ad2aBb63e2B08b2F5E07576E",
+      "txHash": "0x70a55465bdd0ea3ac815819238e76ac91c6568b3d6391109549811e26465327a",
+      "kind": "transparent"
+    },
+    {
+      "address": "0xCbd2404E725E5D5245eD6CC0DcBDF5370954ecd0",
+      "txHash": "0xf59e71f571a51a56759f01596ba8749ea070b2d4ae67117fb9e1b3066a5fd8ce",
+      "kind": "transparent"
+    }
+  ],
+  "impls": {
+    "64953f184b905cb7fb109750fca0f4bb04a2c316811e7973df3a7814ea66ea57": {
+      "address": "0xf752F0f9A308Bd0f0a9f764d55E8A9577a09d024",
+      "txHash": "0x46f0ee593d2f5997204a3d4d38eb4f7b749701f7d9ae70b6a347be1a2d4c5066",
+      "layout": {
+        "solcVersion": "0.8.19",
+        "storage": [
+          {
+            "label": "token",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_contract(IERC20)885",
+            "contract": "AddStakingV1",
+            "src": "contracts/AddStakingV1.sol:12"
+          },
+          {
+            "label": "stakes",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_mapping(t_address,t_struct(StakeInfo)2149_storage)",
+            "contract": "AddStakingV1",
+            "src": "contracts/AddStakingV1.sol:19"
+          },
+          {
+            "label": "totalStakes",
+            "offset": 0,
+            "slot": "2",
+            "type": "t_uint256",
+            "contract": "AddStakingV1",
+            "src": "contracts/AddStakingV1.sol:20"
+          },
+          {
+            "label": "rewardRate",
+            "offset": 0,
+            "slot": "3",
+            "type": "t_uint256",
+            "contract": "AddStakingV1",
+            "src": "contracts/AddStakingV1.sol:21"
+          },
+          {
+            "label": "isInitialized",
+            "offset": 0,
+            "slot": "4",
+            "type": "t_bool",
+            "contract": "AddStakingV1",
+            "src": "contracts/AddStakingV1.sol:22"
+          }
+        ],
+        "types": {
+          "t_address": {
+            "label": "address",
+            "numberOfBytes": "20"
+          },
+          "t_bool": {
+            "label": "bool",
+            "numberOfBytes": "1"
+          },
+          "t_contract(IERC20)885": {
+            "label": "contract IERC20",
+            "numberOfBytes": "20"
+          },
+          "t_mapping(t_address,t_struct(StakeInfo)2149_storage)": {
+            "label": "mapping(address => struct AddStakingV1.StakeInfo)",
+            "numberOfBytes": "32"
+          },
+          "t_struct(StakeInfo)2149_storage": {
+            "label": "struct AddStakingV1.StakeInfo",
+            "members": [
+              {
+                "label": "amount",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "0"
+              },
+              {
+                "label": "lastUpdate",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "1"
+              }
+            ],
+            "numberOfBytes": "64"
+          },
+          "t_uint256": {
+            "label": "uint256",
+            "numberOfBytes": "32"
+          }
+        }
+      }
+    }
+  }
+}
