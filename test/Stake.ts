@@ -23,10 +23,10 @@ describe("Stake", function () {
     const Stake = await ethers.getContractFactory("AddStakingV1");
 
     // deploy with upgradable proxy
-    const stake = await upgrades.deployProxy(Stake, [await token.getAddress(), 100], { initializer: 'intialize' });
+    const stake = await upgrades.deployProxy(Stake, [token.target , 100], { initializer: 'intialize' });
 
     // mint tokens to stake smart contract
-    await token.mint(await stake.getAddress(), parseEther("1000000"));
+    await token.mint(stake.target , parseEther("1000000"));
 
     return { token, stake, owner, user };
   }
@@ -37,7 +37,7 @@ describe("Stake", function () {
       // get token address from stake smart contract
       const tokenAddress = await stake.token();
       // should be equal inputted token address with deployed token address
-      expect(tokenAddress).to.eq(await token.getAddress());
+      expect(tokenAddress).to.eq(token.target);
       // get reward rate from stake smart contract
       const rewardRate = await stake.rewardRate();
       // should be equal reward rate with inputted value
@@ -47,7 +47,7 @@ describe("Stake", function () {
     it("Should not allow to  set token address and reward rate", async function () {
       const { token, stake } = await loadFixture(deployFixture);
       // check revertion of intialize function after deployed
-      await expect(stake.intialize(await token.getAddress(), 1000)).revertedWith(
+      await expect(stake.intialize(token.target , 1000)).revertedWith(
         'Already initialized'
       );
     });
@@ -59,7 +59,7 @@ describe("Stake", function () {
         deployFixture
       );
       // approve user tokens for stake smart contract before stake
-      await token.connect(user).approve(await stake.getAddress(), parseEther("10000"));
+      await token.connect(user).approve(stake.target , parseEther("10000"));
       // check user balance before stake
       let balance = await token.balanceOf(user.address);
       expect(balance).to.eq(parseEther("10000"));
@@ -79,7 +79,7 @@ describe("Stake", function () {
         deployFixture
       );
       // approve user tokens for stake smart contract before stake
-      await token.connect(user).approve(await stake.getAddress(), parseEther("10000"));
+      await token.connect(user).approve(stake.target , parseEther("10000"));
       // check user balance before stake
       let balance = await token.balanceOf(user.address);
       expect(balance).to.eq(parseEther("10000"));
@@ -105,7 +105,7 @@ describe("Stake", function () {
         deployFixture
       );
       // approve user tokens for stake smart contract before stake
-      await token.connect(user).approve(await stake.getAddress(), parseEther("10000"));
+      await token.connect(user).approve(stake.target , parseEther("10000"));
       // check user balance before stake
       let balance = await token.balanceOf(user.address);
       expect(balance).to.eq(parseEther("10000"));

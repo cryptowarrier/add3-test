@@ -1,22 +1,25 @@
-import { ethers } from "hardhat";
+import { parseEther } from "ethers";
+import { ethers, upgrades } from "hardhat";
 
 async function main() {
-  const currentTimestampInSeconds = Math.round(Date.now() / 1000);
-  const unlockTime = currentTimestampInSeconds + 60;
+  const [owner, user] = await ethers.getSigners();
+  const Token = await ethers.getContractFactory("Add3");
+  const token = await Token.deploy();
 
-  const lockedAmount = ethers.parseEther("0.001");
+  console.log("token => ", token.target);
 
-  const lock = await ethers.deployContract("Lock", [unlockTime], {
-    value: lockedAmount,
-  });
+  // mint tokens to user address
+  await token.mint(owner.address, parseEther("10000"));
 
-  await lock.waitForDeployment();
+  const Stake = await ethers.getContractFactory("AddStakingV1");
 
-  console.log(
-    `Lock with ${ethers.formatEther(
-      lockedAmount
-    )}ETH and unlock timestamp ${unlockTime} deployed to ${lock.target}`
-  );
+  // deploy with upgradable proxy
+  const stake = await upgrades.deployProxy(Stake, [token.target, 100], { initializer: 'intialize' });
+
+  // mint tokens to stake smart contract
+  await token.mint(stake.target, parseEther("1000000"));
+
+  console.log("stake => ", stake.target);
 }
 
 // We recommend this pattern to be able to use async/await everywhere
