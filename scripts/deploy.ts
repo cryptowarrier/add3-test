@@ -12,9 +12,10 @@ async function main() {
   // await token.mint(owner.address, parseEther("10000"));
 
   const Stake = await ethers.getContractFactory("AddStakingV1");
+  // const Stake = await ethers.getContractAt("AddStakingV1", "0xedCbFf91cF2858C1Bc17969012AE9757D3F905eA");
 
   // deploy with upgradable proxy
-  const stake = await upgrades.deployProxy(Stake, ["0xaBd5B1a3FA266e5FC5bbB59dB3d0Eae7A9d6e717", 100], { initializer: 'intialize' });
+  const stake = await upgrades.deployProxy(Stake, ["0x362514bf9D9B51A842A3c66bdb50e523ACc6d311", 100], { initializer: 'intialize' });
 
   
   // console.log(await upgrades.erc1967.getImplementationAddress(await stake.getAddress())," getImplementationAddress")
@@ -33,5 +34,6 @@ main().catch((error) => {
   process.exitCode = 1;
 });
 
-// token =>  0xaBd5B1a3FA266e5FC5bbB59dB3d0Eae7A9d6e717
-// stake =>  0xCbd2404E725E5D5245eD6CC0DcBDF5370954ecd0
+// token =>  0x62a13eA6b285fd6C3261B82797669E78146BB0b1
+// stake =>  0xb9711aB21dbBc9FD310f11838e5569E576cbdc72
+
